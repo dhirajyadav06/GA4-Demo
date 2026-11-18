@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharma Store - Best Products in Wardha</title>
+<meta name="description" content="Wardha ka best online store - T-shirts, Shoes aur Accessories">
+
+<!-- GA4 START -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XXXXXXXXXX', { 'debug_mode': true });
+</script>
+<!-- GA4 END -->
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#f6f7fb;color:#111}
+header{background:#111;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+header b{font-size:20px}
+header b span{color:#ffcc00}
+nav a{color:#fff;text-decoration:none;margin-left:16px;font-size:14px}
+.hero{background:linear-gradient(135deg,#111,#3b2cff);color:#fff;padding:50px 20px;text-align:center}
+.hero h1{font-size:36px;line-height:1.2}
+.hero p{margin:14px 0 22px;opacity:.9}
+.btn{background:#ffcc00;color:#111;border:none;padding:13px 22px;border-radius:999px;font-weight:700;cursor:pointer;font-size:15px}
+.btn-outline{background:transparent;color:#fff;border:2px solid #fff;padding:11px 20px;border-radius:999px;font-weight:700;cursor:pointer;margin-left:10px}
+.wrap{max-width:1050px;margin:auto;padding:24px 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.card img{width:100%;height:180px;object-fit:cover}
+.card-body{padding:14px}
+.price{font-weight:800;font-size:18px;margin:6px 0}
+.price s{color:#999;font-weight:400;font-size:14px}
+.card-body button{width:100%;margin-top:8px}
+.add{background:#111;color:#fff;border:none;padding:11px;border-radius:10px;cursor:pointer;font-weight:600}
+.buy{background:#ffcc00;border:none;padding:11px;border-radius:10px;cursor:pointer;font-weight:700}
+.cart-bar{background:#fff;border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 18px rgba(0,0,0,.07);margin-top:20px;position:sticky;bottom:12px}
+.section{margin-top:34px}
+.video-box{background:#000;border-radius:16px;overflow:hidden;margin-top:12px}
+video{width:100%;display:block;max-height:380px}
+form{background:#fff;padding:20px;border-radius:16px;margin-top:12px;display:grid;gap:12px}
+input,select,textarea{padding:12px;border:1px solid #ddd;border-radius:10px;width:100%;font-size:15px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 18px;border-radius:999px;display:none;z-index:99;font-size:14px}
+.badge{background:#e8ffe8;color:#0a7a0a;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+footer{text-align:center;padding:30px;color:#777;font-size:13px}
+@media(max-width:600px){.hero h1{font-size:28px}}
+</style>
+</head>
+<body>
+
+<header>
+<b>Sharma <span>Store</span></b>
+<nav>
+<a href="#products" id="nav-products">Products</a>
+<a href="#video" id="nav-video">Video</a>
+<a href="#contact" id="nav-contact">Contact</a>
+<span>🛒 Cart: <b id="cart-count">0</b></span>
+</nav>
+</header>
+
+<div class="hero">
+<span class="badge">🔥 Wardha me No.1 Store • Free Delivery</span>
+<h1>Stylish Products,<br>Best Price Me.</h1>
+<p>1000+ happy customers • 4.9★ rating • Cash on Delivery available</p>
+<button class="btn" id="hero-shop-now">Shop Now 👇</button>
+<button class="btn-outline" id="hero-whatsapp">WhatsApp Par Baat Karo</button>
+<p style="font-size:12px;margin-top:14px;opacity:.7">GA4 me ye check hoga: kaun hero button dabata hai</p>
+</div>
+
+<div class="wrap">
+
+<div class="section">
+<h2>🔍 Product Search Karo</h2>
+<form id="search-form" onsubmit="return false;">
+<input type="text" id="search-input" placeholder="Jaise: tshirt, shoes, watch... likho aur Search dabao">
+<button class="btn" type="submit" id="search-btn">Search</button>
+</form>
+</div>
+
+<div class="section" id="products">
+<h2>🔥 Trending Products</h2>
+<p style="color:#666;font-size:14px">Kisi bhi product pe click karo - GA4 me dikhega kaunsa product sabse zyada dekha gaya</p>
+<div class="grid" id="product-grid"></div>
+</div>
+
+<div class="cart-bar">
+<div><b>🛒 Cart Total: ₹<span id="cart-total">0</span></b> <span style="color:#666;font-size:13px">(<span id="cart-items-text">0 items</span>)</span></div>
+<button class="btn" id="checkout-btn">Checkout Karo →</button>
+</div>
+
+<div class="section" id="video">
+<h2>🎬 Product Video Dekho</h2>
+<div class="video-box">
+<video id="demo-video" controls poster="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80">
+<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+</video>
+</div>
+<p style="font-size:13px;color:#666;margin-top:8px">Video play / pause / 50% dekhna - sab GA4 me jayega</p>
+</div>
+
+<div class="section" id="contact">
+<h2>📞 Free Offer Ke Liye Form Bharo</h2>
+<form id="lead-form">
+<input type="text" id="lead-name" placeholder="Tumhara Naam *" required>
+<input type="tel" id="lead-phone" placeholder="Mobile Number *" required>
+<select id="lead-interest">
+<option value="tshirt">T-Shirt me interested hu</option>
+<option value="shoes">Shoes me interested hu</option>
+<option value="watch">Watch me interested hu</option>
+<option value="combo">Combo Offer chahiye</option>
+</select>
+<textarea id="lead-msg" placeholder="Kuch message likhna hai toh likho..."></textarea>
+<button class="btn" type="submit">FREE Offer Paao 🎁</button>
+</form>
+</div>
+
+<div class="section" style="background:#fff;padding:20px;border-radius:16px">
+<h2>ℹ️ Humare Baare Me</h2>
+<p style="line-height:1.7;margin-top:10px;color:#444">
+Hum Wardha, Maharashtra se hai. Humara kaam hai best quality products ko sahi price me pahuchana.
+<br><br>
+Neeche tak scroll karoge toh GA4 me <b>scroll (90%)</b> event trigger hoga. Isse pata chalta hai kitne log poora page padhte hai.
+<br><br>
+<b>Is page pe GA4 se hum ye sab track kar sakte hai:</b>
+<br>1. Kaun sa product sabse zyada dekha gaya (view_item)<br>
+2. Kaun sa product cart me gaya (add_to_cart)<br>
+3. Kaun checkout tak gaya (begin_checkout)<br>
+4. Kaun khareeda (purchase)<br>
+5. Kaun form bhara (generate_lead)<br>
+6. Kaun video dekha (video_start)<br>
+7. Kaun search kiya (search)<br>
+8. Kaun WhatsApp button dabaya (click_whatsapp)
+</p>
+<button class="btn" id="bottom-cta" style="margin-top:16px">Wapas Upar Jaa Ke Shopping Karo ↑</button>
+</div>
+
+</div>
+
+<footer>Made in Wardha ❤️ | Sharma Store Demo - GA4 Learning Website</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+{id:'P001', name:'Premium Black T-Shirt', price:499, old:999, img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80', cat:'tshirt'},
+{id:'P002', name:'Stylish Running Shoes', price:1299, old:2499, img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80', cat:'shoes'},
+{id:'P003', name:'Classic Smart Watch', price:1999, old:3999, img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80', cat:'watch'},
+{id:'P004', name:'Denim Jacket', price:1499, old:2999, img:'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80', cat:'jacket'}
+];
+
+let cart = [];
+
+function showToast(msg){
+const t=document.getElementById('toast');
+t.textContent=msg;
+t.style.display='block';
+setTimeout(()=>t.style.display='none',2500);
+}
+
+function sendGA4(eventName, params){
+console.log('GA4 Event ->', eventName, params);
+if(typeof gtag!=='undefined'){
+gtag('event', eventName, params||{});
+}
+}
+
+function renderProducts(){
+const grid=document.getElementById('product-grid');
+
+grid.innerHTML = products.map(p=>`
+<div class="card">
+<img src="${p.img}" alt="${p.name}" class="product-img" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}">
+<div class="card-body">
+<b>${p.name}</b>
+<div style="font-size:12px;color:#777">${p.cat} • ⭐ 4.8 (234 reviews)</div>
+<div class="price">₹${p.price} <s>₹${p.old}</s></div>
+<button class="add" data-add="${p.id}">+ Add to Cart</button>
+<button class="buy" data-buy="${p.id}">Buy Now ⚡</button>
+</div>
+</div>`).join('');
+
+document.querySelectorAll('.product-img').forEach(el=>{
+el.addEventListener('click', ()=>{
+sendGA4('view_item', {
+currency:'INR',
+value:Number(el.dataset.price),
+items:[{
+item_id:el.dataset.id,
+item_name:el.dataset.name,
+price:Number(el.dataset.price),
+quantity:1
+}]
+});
+showToast('👀 '+el.dataset.name+' dekha gaya - GA4 me view_item gaya');
+});
+});
+
+document.querySelectorAll('[data-add]').forEach(btn=>{
+btn.addEventListener('click', ()=>{
+const p=products.find(x=>x.id===btn.dataset.add);
+cart.push(p);
+updateCart();
+
+sendGA4('add_to_cart', {
+currency:'INR',
+value:p.price,
+items:[{
+item_id:p.id,
+item_name:p.name,
+price:p.price,
+quantity:1
+}]
+});
+
+showToast('🛒 '+p.name+' cart me add hua');
+});
+});
+
+document.querySelectorAll('[data-buy]').forEach(btn=>{
+btn.addEventListener('click', ()=>{
+const p=products.find(x=>x.id===btn.dataset.buy);
+cart.push(p);
+updateCart();
+
+sendGA4('add_to_cart', {
+currency:'INR',
+value:p.price,
+items:[{
+item_id:p.id,
+item_name:p.name,
+price:p.price,
+quantity:1
+}]
+});
+
+sendGA4('begin_checkout', {
+currency:'INR',
+value:cart.reduce((s,x)=>s+x.price,0),
+items:cart.map(x=>({
+item_id:x.id,
+item_name:x.name,
+price:x.price,
+quantity:1
+}))
+});
+
+document.getElementById('checkout-btn').click();
+});
+});
+}
+
+function updateCart(){
+const total=cart.reduce((s,x)=>s+x.price,0);
+document.getElementById('cart-count').textContent=cart.length;
+document.getElementById('cart-total').textContent=total;
+document.getElementById('cart-items-text').textContent=cart.length+' items';
+}
+
+renderProducts();
+
+// HERO BUTTONS
+document.getElementById('hero-shop-now').addEventListener('click', ()=>{
+sendGA4('click_cta', {
+button_name:'hero_shop_now',
+location:'hero'
+});
+document.getElementById('products').scrollIntoView({behavior:'smooth'});
+});
+
+document.getElementById('hero-whatsapp').addEventListener('click', ()=>{
+sendGA4('click_whatsapp', {
+button_name:'hero_whatsapp'
+});
+showToast('📱 WhatsApp event GA4 me gaya! (Demo me WhatsApp nahi khulega)');
+});
+
+// SEARCH
+document.getElementById('search-form').addEventListener('submit', ()=>{
+const q=document.getElementById('search-input').value.trim();
+
+if(!q) return showToast('Pehle kuch likho');
+
+sendGA4('search', {
+search_term:q
+});
+
+const found=products.filter(p=>
+p.name.toLowerCase().includes(q.toLowerCase()) ||
+p.cat.includes(q.toLowerCase())
+);
+
+showToast(found.length
+? `🔍 "${q}" mila - ${found.length} product | GA4 me search event gaya`
+: `🔍 "${q}" nahi mila, par GA4 me search_term save ho gaya`
+);
+});
+
+// CHECKOUT + PURCHASE
+document.getElementById('checkout-btn').addEventListener('click', ()=>{
+if(cart.length===0){
+return showToast('Pehle koi product Add to Cart karo!');
+}
+
+const total=cart.reduce((s,x)=>s+x.price,0);
+
+sendGA4('begin_checkout', {
+currency:'INR',
+value:total,
+items:cart.map(x=>({
+item_id:x.id,
+item_name:x.name,
+price:x.price,
+quantity:1
+}))
+});
+
+const orderId='ORD-'+Math.floor(Math.random()*90000+10000);
+
+setTimeout(()=>{
+sendGA4('purchase', {
+transaction_id:orderId,
+currency:'INR',
+value:total,
+items:cart.map(x=>({
+item_id:x.id,
+item_name:x.name,
+price:x.price,
+quantity:1
+}))
+});
+
+showToast('🎉 Order '+orderId+' Successful! GA4 me purchase ₹'+total+' gaya');
+
+cart=[];
+updateCart();
+},800);
+});
+
+// VIDEO EVENTS
+const vid=document.getElementById('demo-video');
+let v25=false,v50=false,v75=false;
+
+vid.addEventListener('play', ()=>{
+sendGA4('video_start', {
+video_title:'Product Demo Video'
+});
+});
+
+vid.addEventListener('pause', ()=>{
+sendGA4('video_pause', {
+video_title:'Product Demo Video',
+current_time:Math.floor(vid.currentTime)
+});
+});
+
+vid.addEventListener('timeupdate', ()=>{
+if(!vid.duration) return;
+
+const pct=(vid.currentTime/vid.duration)*100;
+
+if(pct>=25&&!v25){
+v25=true;
+sendGA4('video_progress',{
+video_title:'Product Demo Video',
+video_percent:25
+});
+}
+
+if(pct>=50&&!v50){
+v50=true;
+sendGA4('video_progress',{
+video_title:'Product Demo Video',
+video_percent:50
+});
+}
+
+if(pct>=75&&!v75){
+v75=true;
+sendGA4('video_progress',{
+video_title:'Product Demo Video',
+video_percent:75
+});
+}
+});
+
+vid.addEventListener('ended', ()=>{
+sendGA4('video_complete', {
+video_title:'Product Demo Video'
+});
+});
+
+// LEAD FORM
+document.getElementById('lead-form').addEventListener('submit', (e)=>{
+e.preventDefault();
+
+const name=document.getElementById('lead-name').value;
+const interest=document.getElementById('lead-interest').value;
+
+sendGA4('generate_lead', {
+lead_name:name,
+interest:interest,
+form_name:'contact_lead_form'
+});
+
+sendGA4('form_submit', {
+form_name:'contact_lead_form'
+});
+
+showToast('✅ Thank you '+name+'! Tumhara lead GA4 me gaya');
+
+e.target.reset();
+});
+
+// NAV + BOTTOM CTA
+document.getElementById('nav-products').addEventListener('click', ()=>{
+sendGA4('click_nav', {nav_item:'products'});
+});
+
+document.getElementById('nav-video').addEventListener('click', ()=>{
+sendGA4('click_nav', {nav_item:'video'});
+});
+
+document.getElementById('nav-contact').addEventListener('click', ()=>{
+sendGA4('click_nav', {nav_item:'contact'});
+});
+
+document.getElementById('bottom-cta').addEventListener('click', ()=>{
+sendGA4('click_cta', {
+button_name:'bottom_back_to_shopping'
+});
+window.scrollTo({top:0, behavior:'smooth'});
+});
+
+// SCROLL DEPTH
+let s25=false,s50=false,s90=false;
+
+window.addEventListener('scroll', ()=>{
+const h=document.documentElement.scrollHeight-window.innerHeight;
+const pct=(window.scrollY/h)*100;
+
+if(pct>25&&!s25){
+s25=true;
+sendGA4('scroll_depth',{percent:25});
+}
+
+if(pct>50&&!s50){
+s50=true;
+sendGA4('scroll_depth',{percent:50});
+}
+
+if(pct>90&&!s90){
+s90=true;
+sendGA4('scroll_depth',{percent:90});
+}
+});
+
+</script>
+</body>
+</html>
